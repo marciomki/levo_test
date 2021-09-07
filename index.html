@@ -5,16 +5,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="assets/css/starter.css">
     <title>Levo - Frontend Test</title>
+    <script>
+        var xmlhttp = new XMLHttpRequest();
+        var url = "https://api.spaceflightnewsapi.net/v3/articles";
+
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                var myArr = JSON.parse(this.responseText);
+                myFunction(myArr);
+            }
+        };
+        xmlhttp.open("GET", url, true);
+        xmlhttp.send();
+
+        function myFunction(arr) {
+            var out = "";
+            var i;
+            out = Object.keys(arr).length;
+            document.getElementById("articles").innerHTML = "<div class='col-md-4'><div class='box-padding bg-box'><p>date</p><h2>Guides</h2><p></p><button type='button' class='readmore-box' toggle='modal' data-target='#exampleModal'>READ MORE</button></div></div>";
+        }
+    </script>
   </head>
   <body>
     <div class="col-md-8 py-5 px-3 mx-auto">
-
       <h1 class="mb-5">Lorem ipsum dolor</h1>
       <div class="col-lg-8 px-0 mb-5">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean a erat eget nisi pellentesque efficitur viverra id tortor. Nulla nec quam ut orci auctor malesuada nec non ex. Integer in odio at tortor faucibus rutrum nec vitae leo.</p>
       </div>
-
-      <div class="row">
+      
+      <div class="row" id="articles">
         
         <div class="col-md-4">
           <div class="box-padding bg-box-gray">
