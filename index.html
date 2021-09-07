@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="assets/css/starter.css">
+    <link href="https://fonts.googleapis.com/css2?family=Karla&display=swap" rel="stylesheet">
     <title>Levo - Frontend Test</title>
     <script>
         var xmlhttp = new XMLHttpRequest();
@@ -21,8 +22,32 @@
         function myFunction(arr) {
             var out = "";
             var i;
+            var getDate;
+            var lastBox;
             out = Object.keys(arr).length;
-            document.getElementById("articles").innerHTML = "<div class='col-md-4'><div class='box-padding bg-box'><p>date</p><h2>Guides</h2><p></p><button type='button' class='readmore-box' toggle='modal' data-target='#exampleModal'>READ MORE</button></div></div>";
+            for(i = 0; i < 6; i++) {
+              getDate = arr[i].updatedAt.split('T');
+              document.getElementById("articles").innerHTML += "<div class='col-md-4 mb-4'><div class='box-padding bg-box'><p>"+arr[i].updatedAt+"</p><h2>"+arr[i].title+"</h2><p></p><button type='button' class='readmore-box' toggle='modal' data-target='#exampleModal'>READ MORE</button></div></div>";
+              lastBox = i;
+            }
+            if(lastBox+1 == arr.length){
+              document.getElementById("loadMore").hide();
+            }
+            $("#loadMore").on("click", function(){
+              if(lastBox < arr.length){
+                for(actBox = lastBox+1; actBox < arr.length; actBox++){
+                  document.getElementById("articles").innerHTML += "<div class='col-md-4 mb-4'><div class='box-padding bg-box'><p>"+arr[i].updatedAt+"</p><h2>"+arr[i].title+"</h2><p></p><button type='button' class='readmore-box' toggle='modal' data-target='#exampleModal'>READ MORE</button></div></div>";
+                  
+                  if(actBox+1 == arr.length){
+                    console.log(actBox + ">>> " + arr.length);
+                    document.getElementById("loadMore").remove();
+                  }
+                }
+              }
+            });
+        }
+        function loadMore(list) {
+          console.log(list);
         }
     </script>
   </head>
@@ -32,39 +57,10 @@
       <div class="col-lg-8 px-0 mb-5">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean a erat eget nisi pellentesque efficitur viverra id tortor. Nulla nec quam ut orci auctor malesuada nec non ex. Integer in odio at tortor faucibus rutrum nec vitae leo.</p>
       </div>
-      
-      <div class="row" id="articles">
-        
-        <div class="col-md-4">
-          <div class="box-padding bg-box-gray">
-            <p>date</p>
-            <h2>Guides</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean a erat eget nisi pellentesque efficitur viverra id tortor. Nulla nec quam ut orci auctor malesuada nec non ex. Integer in odio at tortor faucibus rutrum nec vitae leo.</p>
-            
-            <button type="button" class="btnGray" data-toggle="modal" data-target="#exampleModal">READ MORE</button>
-          </div>
-        </div>
 
-        <div class="col-md-4">
-          <div class="box-padding bg-box-gray">
-            <p>date</p>
-            <h2>Guides</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean a erat eget nisi pellentesque efficitur viverra id tortor. Nulla nec quam ut orci auctor malesuada nec non ex. Integer in odio at tortor faucibus rutrum nec vitae leo.</p>
-            
-            <button type="button" class="btnGray" data-toggle="modal" data-target="#exampleModal">READ MORE</button>
-          </div>
-        </div>
-
-        <div class="col-md-4">
-          <div class="box-padding bg-box-gray">
-            <p>date</p>
-            <h2>Guides</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean a erat eget nisi pellentesque efficitur viverra id tortor. Nulla nec quam ut orci auctor malesuada nec non ex. Integer in odio at tortor faucibus rutrum nec vitae leo.</p>
-            
-            <button type="button" class="btnGray" data-toggle="modal" data-target="#exampleModal">READ MORE</button>
-          </div>
-        </div>
+      <div class="row d-flex" id="articles">
       </div>
+      <div class="row" id="loadMore"><button>LOAD MORE</button></div>
 
       <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
