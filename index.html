@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="assets/css/starter.css">
-    <link href="https://fonts.googleapis.com/css2?family=Karla&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;800&display=swap" rel="stylesheet">    
     <title>Levo - Frontend Test</title>
     <script>
         var xmlhttp = new XMLHttpRequest();
@@ -24,10 +24,19 @@
             var i;
             var getDate;
             var lastBox;
+            var mm;
+            var yy;
+            var dd;
             out = Object.keys(arr).length;
             for(i = 0; i < 6; i++) {
-              getDate = arr[i].updatedAt.split('T');
-              document.getElementById("articles").innerHTML += "<div class='col-md-4 mb-4'><div class='box-padding bg-box'><p>"+arr[i].updatedAt+"</p><h2>"+arr[i].title+"</h2><p></p><button type='button' class='readmore-box' toggle='modal' data-target='#exampleModal'>READ MORE</button></div></div>";
+              getDate = (arr[i].updatedAt).split('T');
+              getDate[0] = getDate[0].replace("-","").replace("-","");
+              yy = getDate[0].substring(0,4);
+              mm = getDate[0].substring(4,6);
+              dd = getDate[0].substring(6,8);
+              console.log(dd+"/"+mm+"/"+yy);
+
+              document.getElementById("articles").innerHTML += "<div class='col-md-4 mb-4'><div class='box-padding bg-box'><span><p>"+dd+"/"+mm+"/"+yy+"</p><h4>"+arr[i].title+"</h4><p>"+arr[i].summary+"</p></span><a href='"+arr[i].url+"' target='_blank' type='button' class='readmore-box'>READ MORE</a></div></div>";
               lastBox = i;
             }
             if(lastBox+1 == arr.length){
@@ -36,10 +45,17 @@
             $("#loadMore").on("click", function(){
               if(lastBox < arr.length){
                 for(actBox = lastBox+1; actBox < arr.length; actBox++){
-                  document.getElementById("articles").innerHTML += "<div class='col-md-4 mb-4'><div class='box-padding bg-box'><p>"+arr[i].updatedAt+"</p><h2>"+arr[i].title+"</h2><p></p><button type='button' class='readmore-box' toggle='modal' data-target='#exampleModal'>READ MORE</button></div></div>";
+                  getDate = (arr[actBox].updatedAt).split('T');
+                  getDate[0] = getDate[0].replace("-","").replace("-","");
+                  yy = getDate[0].substring(0,4);
+                  mm = getDate[0].substring(4,6);
+                  dd = getDate[0].substring(6,8);
+                  console.log(dd+"/"+mm+"/"+yy);
+                  
+                  document.getElementById("articles").innerHTML += "<div class='col-md-4 mb-4'><div class='box-padding bg-box'><span><p>"+dd+"/"+mm+"/"+yy+"</p><h4>"+arr[actBox].title+"</h4><p>"+arr[actBox].summary+"</p></span><a href='"+arr[actBox].url+"' target='_blank' type='button' class='readmore-box'>READ MORE</a></div></div>";
                   
                   if(actBox+1 == arr.length){
-                    console.log(actBox + ">>> " + arr.length);
+                    console.log(actBox + " >>> " + arr.length);
                     document.getElementById("loadMore").remove();
                   }
                 }
@@ -53,7 +69,7 @@
   </head>
   <body>
     <div class="col-md-8 py-5 px-3 mx-auto">
-      <h1 class="mb-5">Lorem ipsum dolor</h1>
+      <h1 class="mb-5">LEVO - Frontend Test by Marcio Iwamoto</h1>
       <div class="col-lg-8 px-0 mb-5">
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean a erat eget nisi pellentesque efficitur viverra id tortor. Nulla nec quam ut orci auctor malesuada nec non ex. Integer in odio at tortor faucibus rutrum nec vitae leo.</p>
       </div>
